@@ -10,12 +10,40 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 const scaleLayer = L.layerGroup().addTo(map);
 const storeLayer = L.layerGroup().addTo(map);
 
+// 定義自定義的圖示
+const purpleIcon = L.icon({
+    iconUrl: 'https://example.com/purple-icon.png',  // 這裡你需要提供一個紫色圖示的 URL
+    iconSize: [25, 41], // 標記圖示的大小
+    iconAnchor: [12, 41], // 標記的錨點位置
+    popupAnchor: [1, -34], // 彈出視窗的錨點位置
+});
+
+const blueIcon = L.icon({
+    iconUrl: 'https://example.com/blue-icon.png',  // 這裡你需要提供一個藍色圖示的 URL
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+});
+
+const redIcon = L.icon({
+    iconUrl: 'https://example.com/red-icon.png',  // 這裡你需要提供一個紅色圖示的 URL
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+});
+
 // 從 scale-data.json 讀取磅秤資料並在地圖上顯示
 fetch('scale-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            const scaleMarker = L.marker([item.latitude, item.longitude]).addTo(scaleLayer);
+            // 根據"檢查合格與否"設置圖示顏色
+            const markerIcon = item.檢查合格與否 === "N" ? redIcon : blueIcon;
+
+            // 在磅秤圖層中標記每個磅秤的位置
+            const scaleMarker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(scaleLayer);
+
+            // 為每個標記綁定 Popup，顯示磅秤資訊
             scaleMarker.bindPopup(`
                 <b>${item.店名}</b><br>
                 廠牌: ${item.廠牌}<br>
@@ -39,7 +67,10 @@ fetch('weighbridge-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            const storeMarker = L.marker([item.latitude, item.longitude]).addTo(storeLayer);
+            // 使用紫色標記圖示
+            const storeMarker = L.marker([item.latitude, item.longitude], { icon: purpleIcon }).addTo(storeLayer);
+
+            // 為每個標記綁定 Popup，顯示地磅資訊
             storeMarker.bindPopup(`
                 <b>${item.所有人}</b><br>
                 地址: ${item.地址}<br>
@@ -66,3 +97,4 @@ const overlays = {
 };
 
 L.control.layers(baseLayers, overlays).addTo(map);
+
