@@ -38,8 +38,8 @@ fetch('scale-data.json')
     });
 
 // 添加地磅資訊到地磅圖層（可以是靜態資訊或來自另一個 API）
-// 從 weighbrige-data.json 讀取磅秤資料並在地圖上顯示
-fetch('weighbrige-data.json')
+// 從 weighbridge-data.json 讀取磅秤資料並在地圖上顯示
+fetch('weighbridge-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
