@@ -56,7 +56,7 @@ fetch('weighbrige-data.json')
                 Max (t): ${item.Max (t)}<br>
                 e (kg): ${item.e (kg)}<br>
                 檢定日期: ${item.檢定日期}<br>
-                檢定合格單/不合格原因: ${item.檢定合格單/不合格原因}<br>
+                檢定合格單號: ${item.檢定合格單號}<br>
                 案號: ${item.案號}
             `);
         });
