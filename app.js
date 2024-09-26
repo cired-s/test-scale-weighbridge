@@ -12,21 +12,21 @@ const storeLayer = L.layerGroup().addTo(map);
 
 // 定義自定義的圖示
 const purpleIcon = L.icon({
-    iconUrl: 'https://example.com/purple-icon.png',  // 這裡你需要提供一個紫色圖示的 URL
+    iconUrl: 'images/wb.png',  // 這裡你需要提供一個紫色圖示的 URL預設為地秤圖
     iconSize: [25, 41], // 標記圖示的大小
     iconAnchor: [12, 41], // 標記的錨點位置
     popupAnchor: [1, -34], // 彈出視窗的錨點位置
 });
 
 const blueIcon = L.icon({
-    iconUrl: 'https://example.com/blue-icon.png',  // 這裡你需要提供一個藍色圖示的 URL
+    iconUrl: 'images/wb.png',  // 這裡你需要提供一個藍色圖示的 URL預設為磅秤圖
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
 });
 
 const redIcon = L.icon({
-    iconUrl: 'https://example.com/red-icon.png',  // 這裡你需要提供一個紅色圖示的 URL
+    iconUrl: 'images/wb.png',  // 這裡你需要提供一個紅色圖示的 URL預設為不合格圖
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
