@@ -19,7 +19,7 @@ const purpleIcon = L.icon({
 });
 
 const blueIcon = L.icon({
-    iconUrl: 'images/wb.png',  // 這裡你需要提供一個藍色圖示的 URL預設為磅秤圖
+    iconUrl: 'images/sc.png',  // 這裡你需要提供一個藍色圖示的 URL預設為磅秤圖
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
