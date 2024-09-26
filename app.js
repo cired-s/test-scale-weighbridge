@@ -20,10 +20,10 @@ fetch('scale-data.json')
     .then(data => {
         data.forEach(item => {
             // 根據"檢查合格與否"設置圖示
-            const markerIcon = item.檢查合格與否 === "N" ? invalidIcon : scaleIcon;
+            //const markerIcon = item.檢查合格與否 === "N" ? invalidIcon : scaleIcon;
 
             // 在磅秤圖層中標記每個磅秤的位置
-            const scaleMarker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(scaleLayer);
+            const scaleMarker = L.marker([item.latitude, item.longitude], { icon: scaleIcon }).addTo(scaleLayer);
 
             // 為每個標記綁定 Popup，顯示磅秤資訊
             scaleMarker.bindPopup(`
