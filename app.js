@@ -6,6 +6,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+// 國土測繪中心 臺灣通用電子地圖
+//const baseEMAP = L.tileLayer('https://wmts.nlsc.gov.tw/wmts/EMAP/default/GoogleMapsCompatible/{z}/{y}/{x}', {
+//  maxNativeZoom: 20,
+//  maxZoom: 20
+//});
+
 // 創建兩個 LayerGroup：一個是磅秤資訊，另一個是地磅資訊
 const scaleLayer = L.layerGroup().addTo(map);
 const storeLayer = L.layerGroup().addTo(map);
