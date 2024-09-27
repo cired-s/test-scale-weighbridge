@@ -1,31 +1,36 @@
-// 創建自定義圖示
-const scaleIcon = L.divIcon({
-    className: 'custom-icon scale-icon',
-    html: 'S'
-});
+// 初始化 Leaflet 地圖，中心點設為台灣 (可以根據需求調整經緯度)
+const map = L.map('map').setView([25.03236, 121.51813], 16);
 
-const weighbridgeIcon = L.divIcon({
-    className: 'custom-icon weighbridge-icon',
-    html: 'W'
-});
+// 設定地圖圖層，這裡使用 OpenStreetMap 圖層
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
-const invalidIcon = L.divIcon({
-    className: 'custom-icon invalid-icon',
-    html: 'X'
-});
+// 創建兩個 LayerGroup：一個是磅秤資訊，另一個是地磅資訊
+const scaleLayer = L.layerGroup().addTo(map);
+const storeLayer = L.layerGroup().addTo(map);
+
+// 設置樣式：磅秤（淺藍色）和地磅（深藍色）
+const scaleMarkerOptions = {
+    color: 'lightblue',  // 標記邊框顏色
+    fillColor: 'lightblue',  // 標記內部填充顏色
+    fillOpacity: 0.5,
+    radius: 8
+};
+
+const storeMarkerOptions = {
+    color: 'darkblue',  // 標記邊框顏色
+    fillColor: 'darkblue',  // 標記內部填充顏色
+    fillOpacity: 0.5,
+    radius: 8
+};
 
 // 從 scale-data.json 讀取磅秤資料並在地圖上顯示
 fetch('scale-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            // 根據"檢查合格與否"設置圖示
-            const markerIcon = item.檢查合格與否 === "N" ? invalidIcon : scaleIcon;
-
-            // 在磅秤圖層中標記每個磅秤的位置
-            const scaleMarker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(scaleLayer);
-
-            // 為每個標記綁定 Popup，顯示磅秤資訊
+            const scaleMarker = L.circleMarker([item.latitude, item.longitude], scaleMarkerOptions).addTo(scaleLayer);
             scaleMarker.bindPopup(`
                 <b>${item.店名}</b><br>
                 廠牌: ${item.廠牌}<br>
@@ -49,10 +54,7 @@ fetch('weighbridge-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            // 使用地磅的自定義圖示
-            const storeMarker = L.marker([item.latitude, item.longitude], { icon: weighbridgeIcon }).addTo(storeLayer);
-
-            // 為每個標記綁定 Popup，顯示地磅資訊
+            const storeMarker = L.circleMarker([item.latitude, item.longitude], storeMarkerOptions).addTo(storeLayer);
             storeMarker.bindPopup(`
                 <b>${item.所有人}</b><br>
                 地址: ${item.地址}<br>
