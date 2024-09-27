@@ -45,11 +45,13 @@ fetch('scale-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            // 判斷 "檢查合格與否" 欄位，移除空格並確保大小寫一致
-            const checkResult = item.檢查合格與否.trim().toUpperCase();
-            // 根據"檢查合格與否"設置圖示顏色
-            const markerIcon = item.檢查合格與否 === "N" ? redIcon : blueIcon;
 
+           // 將 "檢查合格與否" 強制轉換為字串並進行 trim 操作
+            const checkResult = String(item.檢查合格與否).trim().toUpperCase();
+            
+            // 如果檢查結果是 "N"，使用紅色圖標，否則使用藍色圖標
+            const markerIcon = checkResult === "N" ? redIcon : blueIcon;
+            
             // 在磅秤圖層中標記每個磅秤的位置
             const scaleMarker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(scaleLayer);
 
