@@ -45,6 +45,7 @@ infoControl.onAdd = function(map) {
     return div;
 };
 
+// 將控制器添加到地圖
 infoControl.addTo(map);
 
 // 更新數量顯示
@@ -54,6 +55,9 @@ function updateInfoControl() {
         infoDiv.innerHTML = `<b>磅秤數量:</b> ${scaleCount}<br><b>地秤數量:</b> ${storeCount}`;
     }
 }
+
+// 初始化時更新控制欄框
+updateInfoControl();
 
 // 從 scale-data.json 讀取磅秤資料並在地圖上顯示
 fetch('scale-data.json')
