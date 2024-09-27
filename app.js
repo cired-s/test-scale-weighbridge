@@ -30,7 +30,7 @@ fetch('scale-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            const scaleMarker = L.circleMarker([item.latitude, item.longitude], scaleMarkerOptions).addTo(scaleLayer);
+            const scaleMarker = L.Marker([item.latitude, item.longitude], scaleMarkerOptions).addTo(scaleLayer);
             scaleMarker.bindPopup(`
                 <b>${item.店名}</b><br>
                 廠牌: ${item.廠牌}<br>
@@ -54,7 +54,7 @@ fetch('weighbridge-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            const storeMarker = L.circleMarker([item.latitude, item.longitude], storeMarkerOptions).addTo(storeLayer);
+            const storeMarker = L.Marker([item.latitude, item.longitude], storeMarkerOptions).addTo(storeLayer);
             storeMarker.bindPopup(`
                 <b>${item.所有人}</b><br>
                 地址: ${item.地址}<br>
