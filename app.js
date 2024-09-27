@@ -1,5 +1,5 @@
 // 初始化 Leaflet 地圖，中心點設為台灣 (可以根據需求調整經緯度)
-const map = L.map('map').setView([25.03236, 121.51813], 8);
+const map = L.map('map').setView([25.03236, 121.51813], 9);
 
 // 設定地圖圖層，這裡使用 OpenStreetMap 圖層
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
