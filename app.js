@@ -45,6 +45,8 @@ fetch('scale-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
+            // 判斷 "檢查合格與否" 欄位，移除空格並確保大小寫一致
+            const checkResult = item.檢查合格與否.trim().toUpperCase();
             // 根據"檢查合格與否"設置圖示顏色
             const markerIcon = item.檢查合格與否 === "N" ? redIcon : blueIcon;
 
