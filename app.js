@@ -59,6 +59,41 @@ function updateInfoControl() {
 // 初始化時更新控制欄框
 updateInfoControl();
 
+//
+// 記錄選中的兩個位置
+let selectedPoints = [];
+
+// 添加路徑繪製
+let routeLayer = L.layerGroup().addTo(map);
+
+// 計算兩個位置之間的路徑
+function calculateRoute(start, end) {
+    const osrmUrl = `https://router.project-osrm.org/route/v1/walking/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`;
+
+    fetch(osrmUrl)
+        .then(response => response.json())
+        .then(data => {
+            const route = data.routes[0].geometry;
+            const routeGeoJson = L.geoJSON(route).addTo(routeLayer);
+            map.fitBounds(routeGeoJson.getBounds());
+        })
+        .catch(error => {
+            console.error('Error fetching route:', error);
+        });
+}
+
+// 點擊地圖標記時，選擇起點和終點來繪製路徑
+function onMarkerClick(markerLatLng) {
+    selectedPoints.push(markerLatLng);
+
+    // 如果選中兩個點，則計算路徑
+    if (selectedPoints.length === 2) {
+        calculateRoute(selectedPoints[0], selectedPoints[1]);
+        selectedPoints = [];  // 重置選中點
+    }
+}
+
+//
 // 從 scale-data.json 讀取磅秤資料並在地圖上顯示
 fetch('scale-data.json')
     .then(response => response.json())
@@ -88,7 +123,10 @@ fetch('scale-data.json')
                 檢定日期: ${item.檢定日期}<br>
                 檢定合格單號: ${item.檢定合格單號}
             `);
-             scaleCount++;  // 計數
+            scaleMarker.on('click', function () {
+                onMarkerClick(scaleMarker.getLatLng()); 
+            });
+            scaleCount++;  // 計數
         });
         // 更新控制器數量顯示
         updateInfoControl();
@@ -119,7 +157,9 @@ fetch('weighbridge-data.json')
                 檢定合格單號: ${item.檢定合格單號}<br>
                 案號: ${item.案號}
             `);
-            storeCount++;  // 計數
+            storeMarker.on('click', function () {
+                onMarkerClick(storeMarker.getLatLng());
+            });storeCount++;  // 計數
         });
         // 更新控制器數量顯示
         updateInfoControl();
