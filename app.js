@@ -6,12 +6,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// 國土測繪中心 臺灣通用電子地圖
-//const baseEMAP = L.tileLayer('https://wmts.nlsc.gov.tw/wmts/EMAP/default/GoogleMapsCompatible/{z}/{y}/{x}', {
-//  maxNativeZoom: 20,
-//  maxZoom: 20
-//});
-
 // 創建兩個 LayerGroup：一個是磅秤資訊，另一個是地磅資訊
 const scaleLayer = L.layerGroup().addTo(map);
 const storeLayer = L.layerGroup().addTo(map);
@@ -29,7 +23,6 @@ const blueIcon = L.icon({
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
-    
 });
 
 const redIcon = L.icon({
@@ -37,8 +30,30 @@ const redIcon = L.icon({
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
-    
 });
+
+// 計算磅秤和地磅的數量
+let scaleCount = 0;
+let storeCount = 0;
+
+// 自定義控制器來顯示磅秤和地磅數量
+const infoControl = L.control({ position: 'bottomright' });
+
+infoControl.onAdd = function(map) {
+    const div = L.DomUtil.create('div', 'leaflet-control-info');
+    div.innerHTML = `<b>磅秤數量:</b> ${scaleCount}<br><b>地秤數量:</b> ${storeCount}`;
+    return div;
+};
+
+infoControl.addTo(map);
+
+// 更新數量顯示
+function updateInfoControl() {
+    const infoDiv = document.querySelector('.leaflet-control-info');
+    if (infoDiv) {
+        infoDiv.innerHTML = `<b>磅秤數量:</b> ${scaleCount}<br><b>地秤數量:</b> ${storeCount}`;
+    }
+}
 
 // 從 scale-data.json 讀取磅秤資料並在地圖上顯示
 fetch('scale-data.json')
@@ -69,7 +84,10 @@ fetch('scale-data.json')
                 檢定日期: ${item.檢定日期}<br>
                 檢定合格單號: ${item.檢定合格單號}
             `);
+             scaleCount++;  // 計數
         });
+        // 更新控制器數量顯示
+        updateInfoControl();
     })
     .catch(error => {
         console.error('Error loading the JSON file:', error);
@@ -97,7 +115,10 @@ fetch('weighbridge-data.json')
                 檢定合格單號: ${item.檢定合格單號}<br>
                 案號: ${item.案號}
             `);
+            storeCount++;  // 計數
         });
+        // 更新控制器數量顯示
+        updateInfoControl();
     })
     .catch(error => {
         console.error('Error loading the JSON file:', error);
