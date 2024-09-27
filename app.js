@@ -62,32 +62,40 @@ updateInfoControl();
 //
 // 記錄選中的兩個位置
 let selectedPoints = [];
-
-// 添加路徑繪製
 let routeLayer = L.layerGroup().addTo(map);
 
-// 計算兩個位置之間的路徑
+// 計算路徑的函數
 function calculateRoute(start, end) {
     const osrmUrl = `https://router.project-osrm.org/route/v1/walking/${start.lng},${start.lat};${end.lng},${end.lat}?overview=full&geometries=geojson`;
+
+    console.log(`Requesting route from ${start} to ${end}`);
 
     fetch(osrmUrl)
         .then(response => response.json())
         .then(data => {
-            const route = data.routes[0].geometry;
-            const routeGeoJson = L.geoJSON(route).addTo(routeLayer);
-            map.fitBounds(routeGeoJson.getBounds());
+            console.log('Route data:', data);
+
+            // 檢查 API 請求結果是否有路徑資料
+            if (data.routes && data.routes.length > 0) {
+                const route = data.routes[0].geometry;
+                const routeGeoJson = L.geoJSON(route).addTo(routeLayer);
+                map.fitBounds(routeGeoJson.getBounds());
+            } else {
+                console.error('No route found between points.');
+            }
         })
         .catch(error => {
             console.error('Error fetching route:', error);
         });
 }
 
-// 點擊地圖標記時，選擇起點和終點來繪製路徑
+// 點擊標記後觸發
 function onMarkerClick(markerLatLng) {
     selectedPoints.push(markerLatLng);
+    console.log('Selected points:', selectedPoints);
 
-    // 如果選中兩個點，則計算路徑
     if (selectedPoints.length === 2) {
+        // 計算並繪製路徑
         calculateRoute(selectedPoints[0], selectedPoints[1]);
         selectedPoints = [];  // 重置選中點
     }
