@@ -57,6 +57,7 @@ fetch('scale-data.json')
 
             // 為每個標記綁定 Popup，顯示磅秤資訊
             scaleMarker.bindPopup(`
+                <h2>市場磅秤</h2>  <!-- 添加"市場磅秤"標題 -->
                 <b>${item.店名}</b><br>
                 廠牌: ${item.廠牌}<br>
                 型式: ${item.型式}<br>
@@ -84,6 +85,7 @@ fetch('weighbridge-data.json')
 
             // 為每個標記綁定 Popup，顯示地磅資訊
             storeMarker.bindPopup(`
+                <h2>固定地秤</h2>  <!-- 添加"固定地秤"標題 -->
                 <b>${item.所有人}</b><br>
                 地址: ${item.地址}<br>
                 廠牌: ${item.廠牌}<br>
