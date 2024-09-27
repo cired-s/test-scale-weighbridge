@@ -70,15 +70,19 @@ let routeLayer = L.layerGroup().addTo(map);
 // 添加一個按鍵來啟動路徑規劃功能
 const routeButton = L.control({ position: 'topleft' });
 routeButton.onAdd = function(map) {
-    const div = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
+    const div = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom route-button');
     div.innerHTML = '啟動路徑規劃';
-    div.style.backgroundColor = 'white';
+    div.style.backgroundColor = '#fff';
+    div.style.border = '2px solid #ccc';
+    div.style.cursor = 'pointer';
     div.style.padding = '5px';
+    div.style.fontSize = '12px';
 
     // 點擊按鍵來啟動或禁用路徑規劃
     div.onclick = function() {
         isRoutePlanningEnabled = !isRoutePlanningEnabled;
         div.innerHTML = isRoutePlanningEnabled ? '停用路徑規劃' : '啟動路徑規劃';
+        div.style.backgroundColor = isRoutePlanningEnabled ? '#f00' : '#fff';  // 改變按鍵顏色提示狀態
     };
     return div;
 };
@@ -123,6 +127,7 @@ function onMarkerClick(markerLatLng) {
         }
     }
 }
+
 
 //
 // 從 scale-data.json 讀取磅秤資料並在地圖上顯示
