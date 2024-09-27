@@ -19,29 +19,25 @@ const storeLayer = L.layerGroup().addTo(map);
 // 定義自定義的圖示
 const greenIcon = L.icon({
     iconUrl: 'images/marker-icon-2x-green.png',  // 這裡你需要提供一個綠色圖示的 URL預設為地秤圖
-    shadowUrl: 'images/marker-shadow.png',  // 這裡你需要提供一個陰影圖示
     iconSize: [25, 41], // 標記圖示的大小
     iconAnchor: [12, 41], // 標記的錨點位置
     popupAnchor: [1, -34], // 彈出視窗的錨點位置
-    shadowSize: [41, 41]
 });
 
 const blueIcon = L.icon({
     iconUrl: 'images/marker-icon-2x-blue.png',  // 這裡你需要提供一個藍色圖示的 URL預設為磅秤圖
-    shadowUrl: 'images/marker-shadow.png',  // 這裡你需要提供一個陰影圖示
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
-    shadowSize: [41, 41]
+    
 });
 
 const redIcon = L.icon({
     iconUrl: 'images/marker-icon-2x-red.png',  // 這裡你需要提供一個紅色圖示的 URL預設為不合格圖
-    shadowUrl: 'images/marker-shadow.png',  // 這裡你需要提供一個陰影圖示
     iconSize: [25, 41],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
-    shadowSize: [41, 41]
+    
 });
 
 // 從 scale-data.json 讀取磅秤資料並在地圖上顯示
