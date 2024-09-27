@@ -75,7 +75,7 @@ fetch('weighbridge-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            // 使用紫色標記圖示
+            // 使用綠色標記圖示
             const storeMarker = L.marker([item.latitude, item.longitude], { icon: greenIcon }).addTo(storeLayer);
 
             // 為每個標記綁定 Popup，顯示地磅資訊
