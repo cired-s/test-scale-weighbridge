@@ -60,9 +60,29 @@ function updateInfoControl() {
 updateInfoControl();
 
 //
+// 變量來控制是否啟動路徑規劃
+let isRoutePlanningEnabled = false;
+
 // 記錄選中的兩個位置
 let selectedPoints = [];
 let routeLayer = L.layerGroup().addTo(map);
+
+// 添加一個按鍵來啟動路徑規劃功能
+const routeButton = L.control({ position: 'topleft' });
+routeButton.onAdd = function(map) {
+    const div = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
+    div.innerHTML = '啟動路徑規劃';
+    div.style.backgroundColor = 'white';
+    div.style.padding = '5px';
+
+    // 點擊按鍵來啟動或禁用路徑規劃
+    div.onclick = function() {
+        isRoutePlanningEnabled = !isRoutePlanningEnabled;
+        div.innerHTML = isRoutePlanningEnabled ? '停用路徑規劃' : '啟動路徑規劃';
+    };
+    return div;
+};
+routeButton.addTo(map);
 
 // 計算路徑的函數
 function calculateRoute(start, end) {
@@ -78,6 +98,7 @@ function calculateRoute(start, end) {
             // 檢查 API 請求結果是否有路徑資料
             if (data.routes && data.routes.length > 0) {
                 const route = data.routes[0].geometry;
+                routeLayer.clearLayers();  // 清除之前的路徑
                 const routeGeoJson = L.geoJSON(route).addTo(routeLayer);
                 map.fitBounds(routeGeoJson.getBounds());
             } else {
@@ -91,13 +112,15 @@ function calculateRoute(start, end) {
 
 // 點擊標記後觸發
 function onMarkerClick(markerLatLng) {
-    selectedPoints.push(markerLatLng);
-    console.log('Selected points:', selectedPoints);
+    if (isRoutePlanningEnabled) {
+        selectedPoints.push(markerLatLng);
+        console.log('Selected points:', selectedPoints);
 
-    if (selectedPoints.length === 2) {
-        // 計算並繪製路徑
-        calculateRoute(selectedPoints[0], selectedPoints[1]);
-        selectedPoints = [];  // 重置選中點
+        if (selectedPoints.length === 2) {
+            // 計算並繪製路徑
+            calculateRoute(selectedPoints[0], selectedPoints[1]);
+            selectedPoints = [];  // 重置選中點
+        }
     }
 }
 
