@@ -102,8 +102,13 @@ fetch('weighbridge-data.json')
     .then(response => response.json())
     .then(data => {
         data.forEach(item => {
-            // 使用綠色標記圖示
-            const storeMarker = L.marker([item.latitude, item.longitude], { icon: greenIcon }).addTo(storeLayer);
+            // 將 "檢查合格與否" 強制轉換為字串並進行 trim 操作
+            const checkResult = String(item.檢查合格與否).trim().toUpperCase();
+            
+            // 如果檢查結果是 "N"，使用紅色圖標，否則使用綠色圖標
+            const markerIcon = checkResult === "N" ? redIcon : greenIcon;
+            // 
+            const storeMarker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(storeLayer);
 
             // 為每個標記綁定 Popup，顯示地磅資訊
             storeMarker.bindPopup(`
