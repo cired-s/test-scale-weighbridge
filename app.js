@@ -83,7 +83,7 @@ fetch('scale-data.json')
                 器號: ${item.器號}<br>
                 Max (kg): ${item.Max_kg}<br>
                 e (g): ${item.e_g}<br>
-                檢定合格期限: ${item.檢定合格期限}<br>
+                檢定日期: ${item.檢定日期}<br>
                 檢定合格單號: ${item.檢定合格單號}<br>
                 檢查日期: ${item.檢查日期}<br>
                 檢查合格與否: ${item.檢查合格與否}
@@ -115,7 +115,7 @@ fetch('weighbridge-data.json')
                 器號: ${item.器號}<br>
                 Max (t): ${item.Max_t}<br>
                 e (kg): ${item.e_kg}<br>
-                檢定日期: ${item.檢定日期}<br>
+                檢定合格期限: ${item.檢定合格期限}<br>
                 檢定合格單號: ${item.檢定合格單號}<br>
                 檢查日期: ${item.檢查日期}<br>
                 檢查合格與否: ${item.檢查合格與否}
