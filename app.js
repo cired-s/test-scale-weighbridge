@@ -86,6 +86,7 @@ fetch('scale-data.json')
                 檢定日期: ${item.檢定日期}<br>
                 檢定合格單號: ${item.檢定合格單號}<br>
                 檢查日期: ${item.檢查日期}<br>
+                檢查合格單號: ${item.檢查合格單號}<br>
                 檢查合格與否: ${item.檢查合格與否}
             `);
              scaleCount++;  // 計數
@@ -123,6 +124,7 @@ fetch('weighbridge-data.json')
                 檢定合格期限: ${item.檢定合格期限}<br>
                 檢定合格單號: ${item.檢定合格單號}<br>
                 檢查日期: ${item.檢查日期}<br>
+                檢查合格單號: ${item.檢查合格單號}<br>
                 檢查合格與否: ${item.檢查合格與否}
             `);
             storeCount++;  // 計數
