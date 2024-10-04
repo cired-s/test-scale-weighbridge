@@ -74,20 +74,20 @@ fetch('scale-data.json')
             // 在磅秤圖層中標記每個磅秤的位置
             const scaleMarker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(scaleLayer);
 
-            // 為每個標記綁定 Popup，顯示磅秤資訊
+            // 為每個標記綁定 Popup，顯示磅秤資訊，並檢查空白資料顯示 "無"
             scaleMarker.bindPopup(`
                 <h2>市場磅秤</h2>  <!-- 添加"市場磅秤"標題 -->
-                <b>${item.店名}</b><br>
-                廠牌: ${item.廠牌}<br>
-                型式: ${item.型式}<br>
-                器號: ${item.器號}<br>
-                Max (kg): ${item.Max_kg}<br>
-                e (g): ${item.e_g}<br>
-                檢定日期: ${item.檢定日期}<br>
-                檢定合格單號: ${item.檢定合格單號}<br>
-                檢查日期: ${item.檢查日期}<br>
-                檢查合格單號: ${item.檢查合格單號}<br>
-                檢查合格與否: ${item.檢查合格與否}
+                <b>${item.店名 || '無'}</b><br>
+                廠牌: ${item.廠牌 || '無'}<br>
+                型式: ${item.型式 || '無'}<br>
+                器號: ${item.器號 || '無'}<br>
+                Max (kg): ${item.Max_kg || '無'}<br>
+                e (g): ${item.e_g || '無'}<br>
+                檢定日期: ${item.檢定日期 || '無'}<br>
+                檢定合格單號: ${item.檢定合格單號 || '無'}<br>
+                檢查日期: ${item.檢查日期 || '無'}<br>
+                檢查合格單號: ${item.檢查合格單號 || '無'}<br>
+                檢查合格與否: ${item.檢查合格與否 || '無'}
             `);
              scaleCount++;  // 計數
         });
@@ -111,21 +111,21 @@ fetch('weighbridge-data.json')
             // 
             const storeMarker = L.marker([item.latitude, item.longitude], { icon: markerIcon }).addTo(storeLayer);
 
-            // 為每個標記綁定 Popup，顯示地磅資訊
+            // 為每個標記綁定 Popup，顯示地磅資訊，並檢查空白資料顯示 "無"
             storeMarker.bindPopup(`
                 <h2>固定地秤</h2>  <!-- 添加"固定地秤"標題 -->
-                <b>${item.所有人}</b><br>
-                地址: ${item.地址}<br>
-                廠牌: ${item.廠牌}<br>
-                型號: ${item.型號}<br>
-                器號: ${item.器號}<br>
-                Max (t): ${item.Max_t}<br>
-                e (kg): ${item.e_kg}<br>
-                檢定合格期限: ${item.檢定合格期限}<br>
-                檢定合格單號: ${item.檢定合格單號}<br>
-                檢查日期: ${item.檢查日期}<br>
-                檢查合格單號: ${item.檢查合格單號}<br>
-                檢查合格與否: ${item.檢查合格與否}
+                <b>${item.所有人 || '無'}</b><br>
+                地址: ${item.地址 || '無'}<br>
+                廠牌: ${item.廠牌 || '無'}<br>
+                型號: ${item.型號 || '無'}<br>
+                器號: ${item.器號 || '無'}<br>
+                Max (t): ${item.Max_t || '無'}<br>
+                e (kg): ${item.e_kg || '無'}<br>
+                檢定合格期限: ${item.檢定合格期限 || '無'}<br>
+                檢定合格單號: ${item.檢定合格單號 || '無'}<br>
+                檢查日期: ${item.檢查日期 || '無'}<br>
+                檢查合格單號: ${item.檢查合格單號 || '無'}<br>
+                檢查合格與否: ${item.檢查合格與否 || '無'}
             `);
             storeCount++;  // 計數
         });
